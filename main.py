@@ -46,3 +46,127 @@ def iniciar_sistema():
 
 if __name__ == "__main__":
     iniciar_sistema()
+ 
+#============================================================
+# CLASE ABSTRACTA SERVICIO
+#============================================================
+# Uso ABC para indicar que será una plantilla de la que heredarán los demás servicios
+class Servicio(ABC):     
+    # Indico que todo servicio que herede de esta clase deberá implementar su propia forma de calcular costos
+    @abstractmethod 
+    def calcular_costo(self):
+        pass
+    
+     # Indico que cada servicio deberá poder describirse mostrando información sobre lo que ofrece
+    @abstractmethod
+    def describir(self):
+        pass
+    
+     # Indico que cada servicio deberá validar que los datos recibidos sean correctos
+    @abstractmethod
+    def validar_parametros(self):
+        pass
+    
+#------------------------------------------------------------
+# CLASE ReservaSala que hereda de Servicio 
+#------------------------------------------------------------
+class ReservaSala(Servicio):
+    # Inicializo los datos principales del servicio y valido que la información ingresada sea correcta.
+    def __init__ (self, nombre, costo_por_hora):
+        self.nombre = nombre
+        self.costo_por_hora = costo_por_hora
+        self.validar_parametros()
+    
+    # Calculo el costo total de la reserva según las horas solicitadas
+    def calcular_costo(self, horas):
+        if not isinstance(horas, (int, float)):
+            raise ErrorSoftwareFJ("Las horas deben ser un valor numérico.")
+        
+        if horas <= 0:
+            raise ErrorSoftwareFJ("Las horas deben ser mayores que cero.")
+        return self.costo_por_hora * horas
+    
+    # Muestro una descripción del servicio de reserva de salas
+    def describir(self):
+        return f"Servicio de reserva de sala: {self.nombre}"
+    
+    # Valido que los datos del servicio sean correctos
+    def validar_parametros(self):
+        if not isinstance(self.nombre, str) or not self.nombre.strip():
+            raise ErrorSoftwareFJ("El nombre del servicio no es válido.")
+        
+        if not isinstance(self.costo_por_hora, (int, float)):
+            raise ErrorSoftwareFJ("El costo debe ser numérico.")
+        
+        if self.costo_por_hora <= 0:
+            raise ErrorSoftwareFJ("El costo por hora debe ser mayor que cero.")
+        
+#------------------------------------------------------------    
+# CLASE AlquilerEquipos que hereda de Servicio
+#------------------------------------------------------------
+class AlquilerEquipos(Servicio):
+    # Inicializo los datos principales del servicio y valido que la información ingresada sea correcta.
+    def __init__(self, nombre, costo_por_dia):
+        self.nombre = nombre
+        self.costo_por_dia = costo_por_dia
+        self.validar_parametros()
+        
+    # Calculo el costo total del alquiler según los días solicitados
+    def calcular_costo(self, dias):
+        if not isinstance(dias, (int, float)):
+            raise ErrorSoftwareFJ("Los días deben ser un valor numérico.")
+        
+        if dias <= 0:
+            raise ErrorSoftwareFJ("Los días deben ser mayores que cero.")
+        return self.costo_por_dia * dias
+    
+    # Muestro una descripción del servicio de alquiler de equipos
+    def describir(self):
+        return f"Servicio de alquiler de equipos: {self.nombre}"
+    
+    # Valido que los datos del servicio sean correctos
+    def validar_parametros(self):
+        if not isinstance(self.nombre, str) or not self.nombre.strip():
+            raise ErrorSoftwareFJ("El nombre del servicio no es válido.")
+        
+        if not isinstance(self.costo_por_dia, (int, float)):
+            raise ErrorSoftwareFJ("El costo debe ser numérico.")
+        
+        if self.costo_por_dia <= 0:
+            raise ErrorSoftwareFJ("El costo por día debe ser mayor que cero.")
+    
+#------------------------------------------------------------
+# CLASE Asesoria que hereda de Servicio 
+#------------------------------------------------------------
+class Asesoria(Servicio):
+    # Inicializo los datos principales del servicio y valido que la información ingresada sea correcta.
+    def __init__(self,nombre, tarifa_por_sesion):
+        self.nombre = nombre
+        self.tarifa_por_sesion = tarifa_por_sesion
+        self.validar_parametros()
+    
+    # Calculo el costo total de la asesoría según las sesiones solicitadas
+    def calcular_costo(self, sesiones):
+        if not isinstance(sesiones, (int, float)):
+            raise ErrorSoftwareFJ("Las sesiones deben ser un valor numérico.")
+        
+        if sesiones <= 0:
+            raise ErrorSoftwareFJ("Las sesiones deben ser mayores que cero.")
+        return self.tarifa_por_sesion * sesiones
+    
+    # Muestro una descripción del servicio de asesoría
+    def describir(self):
+        return f"Servicio de asesorías especializadas: {self.nombre}"
+    
+    # Valido que los datos del servicio sean correctos
+    def validar_parametros(self):
+        if not isinstance(self.nombre, str) or not self.nombre.strip():
+            raise ErrorSoftwareFJ("El nombre del servicio no es válido.")
+        
+        if not isinstance(self.tarifa_por_sesion, (int, float)):
+            raise ErrorSoftwareFJ("La tarifa por sesión debe ser numérica.")
+        
+        if self.tarifa_por_sesion <= 0:
+            raise ErrorSoftwareFJ("La tarifa por sesión debe ser mayor que cero.")
+
+
