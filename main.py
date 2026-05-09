@@ -169,4 +169,170 @@ class Asesoria(Servicio):
         if self.tarifa_por_sesion <= 0:
             raise ErrorSoftwareFJ("La tarifa por sesión debe ser mayor que cero.")
 
+import logging
+from datetime import datetime
 
+# CONFIGURACION DEL LOG
+logging.basicConfig(
+    filename="sistema_logs.txt",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+# EXCEPCIONES PERSONALIZADAS
+class ReservaError(Exception):
+    pass
+
+class ServicioNoDisponibleError(Exception):
+    pass
+
+
+# CLASE RESERVA
+class Reserva:
+
+    ESTADOS_VALIDOS = ["Pendiente", "Confirmada", "Cancelada", "Procesada"]
+
+    def __init__(self, cliente, servicio, duracion):
+
+        try:
+            if cliente is None:
+                raise ValueError("El cliente no puede ser nulo")
+
+            if servicio is None:
+                raise ValueError("El servicio no puede ser nulo")
+
+            if duracion <= 0:
+                raise ValueError("La duración debe ser mayor a cero")
+
+            self.__cliente = cliente
+            self.__servicio = servicio
+            self.__duracion = duracion
+            self.__estado = "Pendiente"
+            self.__fecha = datetime.now()
+
+            logging.info("Reserva creada correctamente")
+
+        except Exception as e:
+            logging.error(f"Error al crear reserva: {e}")
+            raise ReservaError("No se pudo crear la reserva") from e
+
+    # GETTERS
+    @property
+    def estado(self):
+        return self.__estado
+
+    @property
+    def cliente(self):
+        return self.__cliente
+
+    @property
+    def servicio(self):
+        return self.__servicio
+
+    @property
+    def duracion(self):
+        return self.__duracion
+
+    # CONFIRMAR RESERVA
+    def confirmar(self):
+
+        try:
+            if self.__estado == "Cancelada":
+                raise ReservaError(
+                    "No se puede confirmar una reserva cancelada"
+                )
+
+            self.__estado = "Confirmada"
+
+            logging.info("Reserva confirmada correctamente")
+
+        except Exception as e:
+            logging.error(f"Error al confirmar reserva: {e}")
+            print("Error:", e)
+
+    # CANCELAR RESERVA
+    def cancelar(self):
+
+        try:
+            if self.__estado == "Procesada":
+                raise ReservaError(
+                    "No se puede cancelar una reserva procesada"
+                )
+
+            self.__estado = "Cancelada"
+
+            logging.info("Reserva cancelada")
+
+        except Exception as e:
+            logging.error(f"Error al cancelar reserva: {e}")
+            print("Error:", e)
+
+    # PROCESAR RESERVA
+    def procesar(self):
+
+        try:
+            if self.__estado != "Confirmada":
+                raise ReservaError(
+                    "La reserva debe estar confirmada"
+                )
+
+            costo = self.__servicio.calcular_costo(
+                self.__duracion
+            )
+
+            self.__estado = "Procesada"
+
+            logging.info(
+                f"Reserva procesada correctamente. Total: ${costo}"
+            )
+
+            print("Reserva procesada correctamente")
+            print(f"Costo total: ${costo}")
+
+        except ServicioNoDisponibleError as e:
+            logging.error(f"Servicio no disponible: {e}")
+
+        except Exception as e:
+            logging.error(f"Error al procesar reserva: {e}")
+            print("Error:", e)
+
+        finally:
+            print("Proceso de reserva finalizado")
+
+class Servicio:
+
+    def __init__(self, nombre, precio_base):
+        self.nombre = nombre
+        self.precio_base = precio_base
+
+    # CALCULO BASICO
+    def calcular_costo(self, duracion):
+        return self.precio_base * duracion
+
+    # CALCULO CON IMPUESTO
+    def calcular_costo_impuesto(self, duracion, impuesto):
+
+        subtotal = self.precio_base * duracion
+
+        return subtotal + (subtotal * impuesto)
+
+    # CALCULO CON DESCUENTO
+    def calcular_costo_descuento(self, duracion, descuento):
+
+        subtotal = self.precio_base * duracion
+
+        return subtotal - descuento
+
+    # CALCULO COMPLETO
+    def calcular_costo_total(
+        self,
+        duracion,
+        impuesto=0,
+        descuento=0
+    ):
+
+        subtotal = self.precio_base * duracion
+
+        total = subtotal + (subtotal * impuesto) - descuento
+
+        return total
