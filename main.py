@@ -33,11 +33,17 @@ def iniciar_sistema():
             if nombre.replace(" ", "").isalpha() and len(nombre) > 2:
                 print(f"✅ Cliente {nombre} registrado correctamente.")
                 break
+
+            
+            # --- VALIDACIÓN DE CÉDULA (JAVIER) ---
+        while True:
+            cedula = input("Escriba la cédula del cliente: ").strip()
+            if cedula.isdigit() and 7 <= len(cedula) <= 10:
+                print(f"✅ Cédula {cedula} registrada correctamente.")
+                break
             else:
-                # Aquí registras el error en tu log (Punto 6)
-                registrar_log(f"Intento de nombre inválido: {nombre}")
-                # Aquí frenas al usuario (Punto 2)
-                print("❌ ERROR: El nombre solo debe tener letras y mínimo 3 caracteres.")
+                registrar_log(f"Cédula inválida: {cedula}")
+                print("❌ ERROR: La cédula debe ser solo números (entre 7 y 10 dígitos).")
 
     except ErrorSoftwareFJ as e:
         print(f"Hubo un error: {e}")
