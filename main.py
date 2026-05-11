@@ -28,12 +28,16 @@ def registrar_log(mensaje):
 def iniciar_sistema():
     try:
         print("--- SISTEMA SOFTWARE FJ - TRABAJO DE JAVIER ---")
-        nombre = input("Escriba el nombre del cliente: ")
-        
-        if not nombre.strip():
-            raise ErrorSoftwareFJ("No escribió ningún nombre.")
-            
-        print(f"Cliente {nombre} registrado correctamente.")
+        while True:
+            nombre = input("Escriba el nombre del cliente: ").strip()
+            if nombre.replace(" ", "").isalpha() and len(nombre) > 2:
+                print(f"✅ Cliente {nombre} registrado correctamente.")
+                break
+            else:
+                # Aquí registras el error en tu log (Punto 6)
+                registrar_log(f"Intento de nombre inválido: {nombre}")
+                # Aquí frenas al usuario (Punto 2)
+                print("❌ ERROR: El nombre solo debe tener letras y mínimo 3 caracteres.")
 
     except ErrorSoftwareFJ as e:
         print(f"Hubo un error: {e}")
