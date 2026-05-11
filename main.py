@@ -41,10 +41,17 @@ def iniciar_sistema():
             if cedula.isdigit() and 7 <= len(cedula) <= 10:
                 print(f"✅ Cédula {cedula} registrada correctamente.")
                 break
+            
             else:
                 registrar_log(f"Cédula inválida: {cedula}")
                 print("❌ ERROR: La cédula debe ser solo números (entre 7 y 10 dígitos).")
-
+        # --- PUENTE DE CONEXIÓN ---
+        print(f"\nRegistro exitoso para {nombre}")
+        
+        try:
+            menu_servicios()
+        except:
+            pass
     except ErrorSoftwareFJ as e:
         print(f"Hubo un error: {e}")
         registrar_log(str(e))
