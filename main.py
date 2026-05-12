@@ -20,7 +20,7 @@ class Cliente:
 
 # 2. CHISMOSO: Para anotar los fallos en un bloc de notas
 def registrar_log(mensaje):
-    with open("log_errores.txt", "a") as f:
+    with open("sistema_logs.txt", "a") as f:
         fecha = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{fecha}] ERROR: {mensaje}\n")
 
@@ -30,10 +30,13 @@ def iniciar_sistema():
         print("--- SISTEMA SOFTWARE FJ - TRABAJO DE JAVIER ---")
         while True:
             nombre = input("Escriba el nombre del cliente: ").strip()
+            
             if nombre.replace(" ", "").isalpha() and len(nombre) > 2:
                 print(f"✅ Cliente {nombre} registrado correctamente.")
                 break
 
+        else:  registrar_log(f"Nombre inválido: {nombre}")
+        print("❌ ERROR: El nombre solo debe contener letras.")
             
             # --- VALIDACIÓN DE CÉDULA (JAVIER) ---
         while True:
@@ -50,8 +53,10 @@ def iniciar_sistema():
         
         try:
             menu_servicios()
-        except:
-            pass
+        except Exception as e:
+            registrar_log(f"error en menú servicios: {e}")
+            print("❌ error al cargar servicios.")
+        
     except ErrorSoftwareFJ as e:
         print(f"Hubo un error: {e}")
         registrar_log(str(e))
@@ -316,7 +321,7 @@ class Reserva:
         finally:
             print("Proceso de reserva finalizado")
 
-class Servicio:
+class Serviciocosto:
 
     def __init__(self, nombre, precio_base):
         self.nombre = nombre
