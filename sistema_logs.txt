@@ -1,0 +1,2 @@
+2026-05-11 18:13:16,320 - INFO - Reserva creada correctamente
+[2026-05-12 19:13:34] ERROR: error en menú servicios: name 'Asesoria' is not defined

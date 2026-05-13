@@ -66,6 +66,54 @@ def iniciar_sistema():
         registrar_log(f"Falla crítica: {e}")
     finally:
         print("Proceso terminado.")
+        
+#------------------------------------------------------------       
+# Función que permite seleccionar un servicio del sistema
+#------------------------------------------------------------
+def menu_servicios(cliente=None):  # cliente=None para que no falle si no lo manda mi compañero
+
+    print("---SERVICIOS DISPONIBLES---")
+    print("1. Reserva de Sala")
+    print("2. Alquiler de Equipos")
+    print("3. Asesorías Especializadas")
+    
+    while True:
+
+        opcion = input("Seleccione un servicio (1-3): ").strip()
+
+        if opcion == "1":
+            servicio = ReservaSala("Sala premium", 20000)
+            print("✅ Servicio creado correctamente")
+
+        elif opcion == "2":
+            servicio = AlquilerEquipos("Portátiles", 50000)
+            print("✅ Servicio creado correctamente")
+
+        elif opcion == "3":
+            servicio = Asesoria("Python avanzado", 80000)
+            print("✅ Servicio creado correctamente")
+
+        else:
+            registrar_log(f"Opción de servicio inválida: {opcion}")
+            print("❌ ERROR: Opción no válida. Por favor, ingrese 1, 2 o 3.")
+            continue
+
+        # --- PUENTE HACIA EL ÚLTIMO COMPAÑERO ---
+        try:
+            if cliente is None:
+                print("⚠️ No se recibió cliente, no se puede crear la reserva.")
+            else:
+                duracion = int(input("Ingrese la duración (horas/días/sesiones): "))
+            reserva = Reserva(cliente, servicio, duracion)
+            reserva.confirmar()
+            reserva.procesar()
+            return reserva
+        
+        except NameError:
+            # Si la clase Reserva aún no está definida, el programa no se rompe
+            pass
+        except ValueError:
+            print("❌ La duración debe ser un número entero.")
 
 if __name__ == "__main__":
     iniciar_sistema()
