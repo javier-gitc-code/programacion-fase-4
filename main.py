@@ -52,7 +52,8 @@ def iniciar_sistema():
         print(f"\nRegistro exitoso para {nombre}")
         
         try:
-            menu_servicios()
+            menu_servicios(nombre, cedula) 
+            
         except Exception as e:
             registrar_log(f"error en menú servicios: {e}")
             print("❌ error al cargar servicios.")
