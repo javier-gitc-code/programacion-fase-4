@@ -52,7 +52,8 @@ def iniciar_sistema():
         print(f"\nRegistro exitoso para {nombre}")
         
         try:
-            menu_servicios(nombre, cedula) 
+            cliente = Cliente(nombre, cedula)
+            menu_servicios(cliente)
             
         except Exception as e:
             registrar_log(f"error en menú servicios: {e}")
@@ -97,20 +98,20 @@ def menu_servicios(cliente=None):  # cliente=None para que no falle si no lo man
             registrar_log(f"Opción de servicio inválida: {opcion}")
             print("❌ ERROR: Opción no válida. Por favor, ingrese 1, 2 o 3.")
             continue
-
+        
         # --- PUENTE HACIA EL ÚLTIMO COMPAÑERO ---
         try:
             if cliente is None:
                 print("⚠️ No se recibió cliente, no se puede crear la reserva.")
+                return None
             else:
                 duracion = int(input("Ingrese la duración (horas/días/sesiones): "))
-            reserva = Reserva(cliente, servicio, duracion)
-            reserva.confirmar()
-            reserva.procesar()
-            return reserva
+                reserva = Reserva(cliente, servicio, duracion)
+                reserva.confirmar()
+                reserva.procesar()
+                return reserva
         
         except NameError:
-            # Si la clase Reserva aún no está definida, el programa no se rompe
             pass
         except ValueError:
             print("❌ La duración debe ser un número entero.")
@@ -407,3 +408,4 @@ class Serviciocosto:
         total = subtotal + (subtotal * impuesto) - descuento
 
         return total
+    
