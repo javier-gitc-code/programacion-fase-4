@@ -361,3 +361,4 @@ class Serviciocosto:
         total = subtotal + (subtotal * impuesto) - descuento
 
         return total
+    
