@@ -35,8 +35,9 @@ def iniciar_sistema():
                 print(f"✅ Cliente {nombre} registrado correctamente.")
                 break
 
-        else:  registrar_log(f"Nombre inválido: {nombre}")
-        print("❌ ERROR: El nombre solo debe contener letras.")
+        else:  
+             registrar_log(f"Nombre inválido: {nombre}")
+             print("❌ ERROR: El nombre solo debe contener letras.")
             
             # --- VALIDACIÓN DE CÉDULA (JAVIER) ---
         while True:
@@ -52,7 +53,8 @@ def iniciar_sistema():
         print(f"\nRegistro exitoso para {nombre}")
         
         try:
-            menu_servicios(nombre, cedula) 
+            cliente_obj = Cliente(nombre, cedula)
+            menu_servicios(cliente_obj)
             
         except Exception as e:
             registrar_log(f"error en menú servicios: {e}")

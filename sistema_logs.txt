@@ -1,0 +1,7 @@
+[2026-05-12 16:43:34] ERROR: Cédula inválida: 
+[2026-05-12 16:43:44] ERROR: error en menú servicios: name 'menu_servicios' is not defined
+[2026-05-12 21:59:39] ERROR: error en menú servicios: name 'menu_servicios' is not defined
+[2026-05-12 22:03:43] ERROR: error en menú servicios: name 'menu_servicios' is not defined
+[2026-05-12 22:07:37] ERROR: Cédula inválida: :\Users\jodg-\AppData\Local\Programs\Python\Python314\python.exe "c:/Users/jodg-/OneDrive/Documentos/GitHub/programacion fase 4/main.py"
+[2026-05-12 22:07:47] ERROR: error en menú servicios: name 'menu_servicios' is not defined
+[2026-05-12 22:09:17] ERROR: error en menú servicios: name 'menu_servicios' is not defined
