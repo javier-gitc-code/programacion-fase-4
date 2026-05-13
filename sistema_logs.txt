@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2026-05-12 16:43:34] ERROR: Cédula inválida: 
 [2026-05-12 16:43:44] ERROR: error en menú servicios: name 'menu_servicios' is not defined
 [2026-05-12 21:59:39] ERROR: error en menú servicios: name 'menu_servicios' is not defined
@@ -5,3 +6,9 @@
 [2026-05-12 22:07:37] ERROR: Cédula inválida: :\Users\jodg-\AppData\Local\Programs\Python\Python314\python.exe "c:/Users/jodg-/OneDrive/Documentos/GitHub/programacion fase 4/main.py"
 [2026-05-12 22:07:47] ERROR: error en menú servicios: name 'menu_servicios' is not defined
 [2026-05-12 22:09:17] ERROR: error en menú servicios: name 'menu_servicios' is not defined
+=======
+2026-05-11 18:13:16,320 - INFO - Reserva creada correctamente
+[2026-05-12 19:13:34] ERROR: error en menú servicios: name 'Asesoria' is not defined
+>>>>>>> ddbfd9aae1c9aaa63365447c3f1fcd4668932aea
+[2026-05-12 22:16:47] ERROR: error en menú servicios: name 'ReservaSala' is not defined
+[2026-05-12 23:00:31] ERROR: error en menú servicios: name 'menu_servicios' is not defined
