@@ -58,7 +58,7 @@ def iniciar_sistema():
             
         except Exception as e:
             registrar_log(f"error en menú servicios: {e}")
-            print("❌ error al cargar servicios.")
+            print(f"❌ error al cargar servicios: {e}")
         
     except ErrorSoftwareFJ as e:
         print(f"Hubo un error: {e}")

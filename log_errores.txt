@@ -1,0 +1,6 @@
+[2026-05-05 23:43:44] ERROR: No escribió ningún nombre.
+[2026-05-10 22:08:47] ERROR: Cédula inválida: 10C:\Users\gomez\AppData\Local\Programs\Python\Python313\python.exe c:/Users/gomez/programacion-fase-4/main.py
+[2026-05-10 23:01:08] ERROR: Cédula inválida: 106C:\Users\gomez\AppData\Local\Programs\Python\Python313\python.exe c:/Users/gomez/programacion-fase-4/main.py
+[2026-05-10 23:49:05] ERROR: Cédula inválida: 23945928975
+[2026-05-10 23:49:27] ERROR: Opción de servicio inválida: 5
+[2026-05-11 00:00:24] ERROR: Cédula inválida: z
